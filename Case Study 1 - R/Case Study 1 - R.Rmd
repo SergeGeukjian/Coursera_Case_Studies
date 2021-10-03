@@ -1,0 +1,211 @@
+---
+title: "Case Study 1 - How Does a Bike-share navigate Speedy Success?"
+author: "Serge Geukjian"
+date: "9/24/2021"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+### **Importing the data and renaming all columns**
+```{r}
+library(tidyverse)
+library(readr)
+library(skimr)
+library(lubridate)
+
+q1_2018 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2018 (Full)/Divvy_Trips_2018_Q1.csv")
+q2_2018 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2018 (Full)/Divvy_Trips_2018_Q2.csv")
+q3_2018 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2018 (Full)/Divvy_Trips_2018_Q3.csv")
+q4_2018 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2018 (Full)/Divvy_Trips_2018_Q4.csv")
+q1_2019 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2019 (Full)/Divvy_Trips_2019_Q1.csv")
+q2_2019 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2019 (Full)/Divvy_Trips_2019_Q2.csv")
+q3_2019 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2019 (Full)/Divvy_Trips_2019_Q3.csv")
+q4_2019 <- read_csv("/Users/SG13/Desktop/Online Courses/Google Data Analytics Professional Certificate (COURSERA)/Course 8 - Google Data Analytics Capstone -  Complete a Case Study (COURSERA)/Case Study 1/Tables from the Database/2019 (Full)/Divvy_Trips_2019_Q4.csv")
+
+
+(q1_2018 <- rename(q1_2018,
+                  "BIKE_RIDE_ID" = "01 - Rental Details Rental ID",
+                  "START_DATE" = "01 - Rental Details Local Start Time",
+                  "END_DATE" = "01 - Rental Details Local End Time",
+                  "BIKE_TYPE_ID" = "01 - Rental Details Bike ID",
+                  "DURATION_sec" = "01 - Rental Details Duration In Seconds Uncapped",
+                  "START_STATION_ID" = "03 - Rental Start Station ID",
+                  "START_STATION_NAME" = "03 - Rental Start Station Name",
+                  "END_STATION_ID" = "02 - Rental End Station ID",
+                  "END_STATION_NAME" = "02 - Rental End Station Name",
+                  "USER_TYPE" = "User Type",
+                  "GENDER" = "Member Gender",
+                  "MEMBER_BIRTHDAY" = "05 - Member Details Member Birthday Year"
+                  ))
+(q2_2018 <- rename(q2_2018,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+(q3_2018 <- rename(q3_2018,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+(q4_2018 <- rename(q4_2018,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+(q1_2019 <- rename(q1_2019,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+(q2_2019 <- rename(q2_2019,
+                  "BIKE_RIDE_ID" = "01 - Rental Details Rental ID",
+                  "START_DATE" = "01 - Rental Details Local Start Time",
+                  "END_DATE" = "01 - Rental Details Local End Time",
+                  "BIKE_TYPE_ID" = "01 - Rental Details Bike ID",
+                  "DURATION_sec" = "01 - Rental Details Duration In Seconds Uncapped",
+                  "START_STATION_ID" = "03 - Rental Start Station ID",
+                  "START_STATION_NAME" = "03 - Rental Start Station Name",
+                  "END_STATION_ID" = "02 - Rental End Station ID",
+                  "END_STATION_NAME" = "02 - Rental End Station Name",
+                  "USER_TYPE" = "User Type",
+                  "GENDER" = "Member Gender",
+                  "MEMBER_BIRTHDAY" = "05 - Member Details Member Birthday Year"
+                  ))
+(q3_2019 <- rename(q3_2019,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+(q4_2019 <- rename(q4_2019,
+                  "BIKE_RIDE_ID" = "trip_id",
+                  "START_DATE" = "start_time",
+                  "END_DATE" = "end_time",
+                  "BIKE_TYPE_ID" = "bikeid",
+                  "DURATION_sec" = "tripduration" ,
+                  "START_STATION_ID" = "from_station_id",
+                  "START_STATION_NAME" = "from_station_name",
+                  "END_STATION_ID" = "to_station_id",
+                  "END_STATION_NAME" = "to_station_name",
+                  "USER_TYPE" = "usertype",
+                  "GENDER" = "gender",
+                  "MEMBER_BIRTHDAY" = "birthyear"
+                  ))
+```
+### **Combining all tables into one master table**
+```{r}
+MASTER_DATA <- bind_rows(q1_2018,q2_2018,q3_2018,q4_2018,q1_2019,q2_2019,q3_2019,q4_2019)
+glimpse(MASTER_DATA)
+
+```
+```{r}
+skim_without_charts(MASTER_DATA)
+```
+
+### **Data manipulation and additional calculations**
+```{r}
+MASTER_DATA <- MASTER_DATA %>%
+  mutate("DURATION_min" = DURATION_sec / 60)%>%
+  mutate("QUARTER" = quarter(START_DATE))%>%
+  mutate("YEAR" = year(START_DATE))%>%
+  mutate("MONTH" = month(START_DATE))
+
+MASTER_DATA$GENDER[is.na(MASTER_DATA$GENDER)] = "undefined"
+MASTER_DATA$MEMBER_BIRTHDAY[is.na(MASTER_DATA$MEMBER_BIRTHDAY)] = 0
+
+MASTER_DATA <- MASTER_DATA %>%
+  filter(MASTER_DATA$MEMBER_BIRTHDAY > 1919 & MASTER_DATA$MEMBER_BIRTHDAY != 0)
+
+MASTER_DATA$WEEKDAY <- format(as.Date(MASTER_DATA$START_DATE),"%A")
+
+aggregate(MASTER_DATA$DURATION_min ~ MASTER_DATA$USER_TYPE,FUN = mean)
+aggregate(MASTER_DATA$DURATION_min ~ MASTER_DATA$USER_TYPE,FUN = median)
+aggregate(MASTER_DATA$DURATION_min ~ MASTER_DATA$USER_TYPE,FUN = max)
+aggregate(MASTER_DATA$DURATION_min ~ MASTER_DATA$USER_TYPE,FUN = min)
+
+MASTER_DATA$WEEKDAY <- ordered(MASTER_DATA$WEEKDAY, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
+
+aggregate(MASTER_DATA$DURATION_min ~ MASTER_DATA$USER_TYPE + MASTER_DATA$WEEKDAY, FUN = mean)
+```
+
+### **Analysis Visualizations**
+```{r}
+MASTER_DATA %>%
+  group_by(USER_TYPE,WEEKDAY)%>%
+  summarise(number_of_rides = n(),average_duration = mean(DURATION_min),max_duration = max(DURATION_min),total_duration = sum(DURATION_min))%>%
+  arrange(USER_TYPE,WEEKDAY) %>%
+  ggplot(aes(x=WEEKDAY,y=total_duration,fill=USER_TYPE)) + geom_col(position = "dodge") + labs(title = "Total Duration of Rides Throughout the week")
+```
+```{r}
+MASTER_DATA %>%
+  group_by(USER_TYPE,WEEKDAY)%>%
+  summarise(number_of_rides = n(),average_duration = mean(DURATION_min),max_duration = max(DURATION_min),total_duration = sum(DURATION_min))%>%
+  arrange(USER_TYPE,WEEKDAY) %>%
+  ggplot(aes(x=WEEKDAY,y=average_duration,fill=USER_TYPE,group=USER_TYPE,color=USER_TYPE)) + geom_line(linetype = "dashed", color = "red") + geom_point() + labs(title = "Average Duration per User Type Throughout the Week")
+```
+
+```{r}
+df <- data.frame(weekday = MASTER_DATA$WEEKDAY,duration = MASTER_DATA$DURATION_min)
+
+df %>%  
+  group_by(weekday)%>%
+  summarise(average_duration2 = mean(duration),number = n())%>%
+  ggplot(aes(x=weekday,y=average_duration2, fill=number,group=number)) + geom_point() + labs(title = "Average Duration Throughout the Week")
+  
+```
+
+```{r}
+MASTER_DATA %>%
+  group_by(USER_TYPE,QUARTER,YEAR,MONTH)%>%
+  summarise(number_of_rides = n(),total_duration = sum(DURATION_min))%>%
+  arrange(USER_TYPE,QUARTER,YEAR,MONTH) %>%
+  ggplot(aes(x=MONTH,y=total_duration,fill=USER_TYPE,group=USER_TYPE,color=USER_TYPE)) + geom_col(position = "dodge")+ facet_wrap(~YEAR) + labs(title = "Annual Sum of Duration per User")
+```
+
+
+
